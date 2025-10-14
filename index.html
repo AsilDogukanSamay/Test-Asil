@@ -15,31 +15,12 @@
   </script>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    h1 { color: #333; }
-    p { color: #555; }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 20px;
-      font-size: 16px;
-    }
-    button:hover { background-color: #45a049; }
+    body { font-family: Arial; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; background:#f5f7fa; }
+    h1 { color:#333; }
+    p { color:#555; }
+    button { background:#4CAF50; color:#fff; border:none; padding:12px 24px; border-radius:6px; cursor:pointer; font-size:16px; margin-top:20px; }
+    button:hover { background:#45a049; }
 
-    /* Toast Bildirim */
     #toast {
       visibility: hidden;
       min-width: 250px;
@@ -50,14 +31,14 @@
       padding: 16px;
       position: fixed;
       top: 20px;
-      z-index: 9999;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 16px;
+      z-index: 9999;
+      font-size:16px;
     }
     #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-    @keyframes fadein { from { top: 0; opacity: 0; } to { top: 20px; opacity: 1; } }
-    @keyframes fadeout { from { top: 20px; opacity: 1; } to { top: 0; opacity: 0; } }
+    @keyframes fadein { from { top:0; opacity:0; } to { top:20px; opacity:1; } }
+    @keyframes fadeout { from { top:20px; opacity:1; } to { top:0; opacity:0; } }
   </style>
 </head>
 <body>
@@ -65,30 +46,26 @@
   <p>Bu sayfa, Analytics’in doğru çalışıp çalışmadığını test etmek içindir.</p>
 
   <button id="testButton">Tıklama Testi</button>
-
-  <!-- Toast Bildirim -->
   <div id="toast"></div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    function showToast(message){
       const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'show';
+      setTimeout(() => { toast.className = toast.className.replace('show',''); }, 3000);
+    }
 
-      function showToast(message) {
-        toast.textContent = message;
-        toast.className = 'show';
-        setTimeout(() => { toast.className = toast.className.replace('show',''); }, 3000);
-      }
-
-      // Tıklama Testi Butonu
-      document.getElementById('testButton').addEventListener('click', () => {
-        gtag('event', 'button_click', {
-          'event_category': 'Test',
-          'event_label': 'Tıklama Testi',
-          'value': 1
-        });
-        showToast('Tıklama Testi Başarılı!'); // Burayı değiştirdik
+    // Sayfa tamamen yüklendikten sonra event ekle
+    window.onload = () => {
+      const button = document.getElementById('testButton');
+      button.addEventListener('click', () => {
+        // GA4 event
+        gtag('event', 'button_click', { event_category:'Test', event_label:'Tıklama Testi', value:1 });
+        // Toast bildirimi
+        showToast('Tıklama Testi Başarılı!');
       });
-    });
+    }
   </script>
 </body>
 </html>
