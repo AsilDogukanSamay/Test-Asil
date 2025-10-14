@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Analytics Test Sayfası</title>
+  <title>Google Analytics Tıklama Testi</title>
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1EWPQLSEHY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -25,13 +25,9 @@
       height: 100vh;
       margin: 0;
     }
-    h1 {
-      color: #333;
-    }
-    p {
-      color: #555;
-    }
-    button {
+    h1 { color: #333; }
+    p { color: #555; }
+    button, a {
       background-color: #4CAF50;
       color: white;
       border: none;
@@ -40,29 +36,67 @@
       cursor: pointer;
       margin-top: 20px;
       font-size: 16px;
+      text-decoration: none;
+      display: inline-block;
     }
-    button:hover {
-      background-color: #45a049;
+    button:hover, a:hover { background-color: #45a049; }
+
+    /* Toast Bildirim Stili */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 16px;
+      position: fixed;
+      top: 20px;
+      z-index: 9999;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
     }
+    #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+    @keyframes fadein { from { top: 0; opacity: 0; } to { top: 20px; opacity: 1; } }
+    @keyframes fadeout { from { top: 20px; opacity: 1; } to { top: 0; opacity: 0; } }
   </style>
 </head>
 <body>
-  <h1>Google Analytics Test Sayfasına Hoş Geldin 👋</h1>
-  <p>Bu sayfa, Analytics hesabının doğru çalışıp çalışmadığını test etmek içindir.</p>
+  <h1>Google Analytics Tıklama Testi 👋</h1>
+  <p>Bu sayfa, Analytics’in doğru çalışıp çalışmadığını test etmek içindir.</p>
 
+  <!-- Tıklama Butonu -->
   <button id="testButton">Tıklama Testi</button>
 
+  <!-- Twitter Share Butonu -->
+  <a href="https://twitter.com/intent/tweet?text=DogukanAnalytics" target="_blank" id="tweetButton">Tweet At</a>
+
+  <!-- Toast Bildirim -->
+  <div id="toast">Tıklandı! Analytics’e gönderildi.</div>
+
   <script>
-    // Buton tıklama event'i
-    const button = document.getElementById('testButton');
-    button.addEventListener('click', () => {
-      gtag('event', 'button_click', {
-        'event_category': 'Test',
-        'event_label': 'Tıklama Testi',
-        'value': 1
+    document.addEventListener('DOMContentLoaded', () => {
+      const toast = document.getElementById('toast');
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.className = 'show';
+        setTimeout(() => { toast.className = toast.className.replace('show',''); }, 3000);
+      }
+
+      // Tıklama Testi Butonu
+      document.getElementById('testButton').addEventListener('click', () => {
+        gtag('event', 'button_click', {
+          'event_category': 'Test',
+          'event_label': 'Tıklama Testi',
+          'value': 1
+        });
+        showToast('Tıklama Testi butonuna tıklandı! Analytics’e gönderildi.');
       });
-      alert('Tıklandı! Analytics’e gönderildi.');
-    });
-  </script>
-</body>
-</html>
+
+      // Twitter Share Butonu
+      document.getElementById('tweetButton').addEventListener('click', () => {
+        gtag('event', 'twitter_share', {
+          'event_category': 'Social',
+          'event_label': 'Tweet Butonu Tıklandı'
