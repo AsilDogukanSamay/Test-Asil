@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Analytics Test Sayfası</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1EWPQLSEHY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1EWPQLSEHY');
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      color: #555;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Google Analytics Test Sayfasına Hoş Geldin 👋</h1>
+  <p>Bu sayfa, Analytics hesabının doğru çalışıp çalışmadığını test etmek içindir.</p>
+
+  <button id="testButton">Tıklama Testi</button>
+
+  <script>
+    // Buton tıklama event'i
+    const button = document.getElementById('testButton');
+    button.addEventListener('click', () => {
+      gtag('event', 'button_click', {
+        'event_category': 'Test',
+        'event_label': 'Tıklama Testi',
+        'value': 1
+      });
+      alert('Tıklandı! Analytics’e gönderildi.');
+    });
+  </script>
+</body>
+</html>
