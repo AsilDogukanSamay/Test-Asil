@@ -27,7 +27,7 @@
     }
     h1 { color: #333; }
     p { color: #555; }
-    button, a {
+    button {
       background-color: #4CAF50;
       color: white;
       border: none;
@@ -36,12 +36,10 @@
       cursor: pointer;
       margin-top: 20px;
       font-size: 16px;
-      text-decoration: none;
-      display: inline-block;
     }
-    button:hover, a:hover { background-color: #45a049; }
+    button:hover { background-color: #45a049; }
 
-    /* Toast Bildirim Stili */
+    /* Toast Bildirim */
     #toast {
       visibility: hidden;
       min-width: 250px;
@@ -66,14 +64,10 @@
   <h1>Google Analytics Tıklama Testi 👋</h1>
   <p>Bu sayfa, Analytics’in doğru çalışıp çalışmadığını test etmek içindir.</p>
 
-  <!-- Tıklama Butonu -->
   <button id="testButton">Tıklama Testi</button>
 
-  <!-- Twitter Share Butonu -->
-  <a href="https://twitter.com/intent/tweet?text=DogukanAnalytics" target="_blank" id="tweetButton">Tweet At</a>
-
   <!-- Toast Bildirim -->
-  <div id="toast">Tıklandı! Analytics’e gönderildi.</div>
+  <div id="toast"></div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -92,11 +86,9 @@
           'event_label': 'Tıklama Testi',
           'value': 1
         });
-        showToast('Tıklama Testi butonuna tıklandı! Analytics’e gönderildi.');
+        showToast('Tıklama Testi Başarılı!'); // Burayı değiştirdik
       });
-
-      // Twitter Share Butonu
-      document.getElementById('tweetButton').addEventListener('click', () => {
-        gtag('event', 'twitter_share', {
-          'event_category': 'Social',
-          'event_label': 'Tweet Butonu Tıklandı'
+    });
+  </script>
+</body>
+</html>
