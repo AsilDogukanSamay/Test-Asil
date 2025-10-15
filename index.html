@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Analytics Tıklama Testi</title>
+  <title>Google Analytics Tıklama & Tweet Testi</title>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1EWPQLSEHY"></script>
@@ -20,6 +20,8 @@
     p { color:#555; }
     button { background:#4CAF50; color:#fff; border:none; padding:12px 24px; border-radius:6px; cursor:pointer; font-size:16px; margin-top:20px; }
     button:hover { background:#45a049; }
+    #tweetButton { background:#1DA1F2; margin-top:10px; }
+    #tweetButton:hover { background:#0d95e8; }
 
     #toast {
       visibility: hidden;
@@ -42,10 +44,11 @@
   </style>
 </head>
 <body>
-  <h1>Google Analytics Tıklama Testi 👋</h1>
+  <h1>Google Analytics Tıklama & Tweet Testi 👋</h1>
   <p>Bu sayfa, Analytics’in doğru çalışıp çalışmadığını test etmek içindir.</p>
 
   <button id="testButton">Tıklama Testi</button>
+  <button id="tweetButton">Tweet At</button>
   <div id="toast"></div>
 
   <script>
@@ -56,14 +59,24 @@
       setTimeout(() => { toast.className = toast.className.replace('show',''); }, 3000);
     }
 
-    // Sayfa tamamen yüklendikten sonra event ekle
     window.onload = () => {
-      const button = document.getElementById('testButton');
-      button.addEventListener('click', () => {
-        // GA4 event
+      const testButton = document.getElementById('testButton');
+      const tweetButton = document.getElementById('tweetButton');
+
+      // Tıklama Testi Butonu
+      testButton.addEventListener('click', () => {
         gtag('event', 'button_click', { event_category:'Test', event_label:'Tıklama Testi', value:1 });
-        // Toast bildirimi
         showToast('Tıklama Testi Başarılı!');
+      });
+
+      // Tweet Butonu
+      tweetButton.addEventListener('click', () => {
+        gtag('event', 'tweet_click', { event_category:'Tweet', event_label:'Tweet At', value:1 });
+        showToast('Tweet Penceresi Açılıyor...');
+        // Yeni pencere ile Twitter paylaş
+        const tweetText = encodeURIComponent("Google Analytics Test! #DogukanAnalytics");
+        const url = `https://twitter.com/intent/tweet?text=${tweetText}`;
+        window.open(url, '_blank', 'width=550,height=420');
       });
     }
   </script>
